@@ -93,9 +93,6 @@ export default class Experiment extends Component {
   }
 
   getLocalStorageValue = () => {
-    if(typeof this.props.userIdentifier === "string") {
-      return this.getSelectedVariant();
-    }
     const activeValue = emitter.getActiveVariant(this.props.name);
     if(typeof activeValue === "string") {
       return activeValue;
@@ -104,6 +101,9 @@ export default class Experiment extends Component {
     if(typeof storedValue === "string") {
       emitter.setActiveVariant(this.props.name, storedValue, true);
       return storedValue;
+    }
+    if(typeof this.props.userIdentifier === "string") {
+      return this.getSelectedVariant();
     }
     if(typeof this.props.defaultVariantName === 'string') {
       emitter.setActiveVariant(this.props.name, this.props.defaultVariantName);
